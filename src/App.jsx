@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 import Login from './components/auth/login';
 import Home from './components/home';
@@ -13,40 +14,25 @@ import Register from './components/auth/register';
 import PusherClass from './Pusher/pusher';
 
 function App() {
-  let pusher = new PusherClass()
   let [value, setValue] = useState(null);
   
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    localStorage.removeItem("user");
-    return false;
-  }
+  
   return (
     <Router>
       <div>
-        <NavBar getCookie={getCookie} setValue={setValue}/>
+        <NavBar  setValue={setValue}/>
 
         <Switch>
           <Route path="/login">
-            <Login setValue={setValue} getCookie={getCookie}/>
+            <Login setValue={setValue} />
           </Route>
           <Route path="/register">
             <Register setValue={setValue}/>
           </Route>
-          <Route path="/home">
-            <Home getCookie={getCookie}/>
+          <Route path="/">
+            <Home />
           </Route>
+          <Redirect from="*" to="/" />
         </Switch>
       </div>
     </Router>

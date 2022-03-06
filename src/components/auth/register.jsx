@@ -30,9 +30,9 @@ function Register({ setValue }) {
         <div className="d-flex flex-column">
 
             <label>UserName</label>
-            <input type="text" onChange={(e) => { setUserName(e.target.value) }} autoComplete />
+            <input type="text" onChange={(e) => { setUserName(e.target.value) }}  />
             <label>Email</label>
-            <input type="email" onChange={(e) => { setEmail(e.target.value) }} autoComplete />
+            <input type="email" onChange={(e) => { setEmail(e.target.value) }}  />
             <label>Password</label>
             <input type="password" onChange={(e) => { setPassword(e.target.value) }} />
             <button type="button" className="btn btn-primary" onClick={() => register()}>Submit</button>

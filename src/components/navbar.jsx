@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Redirect, Link, useHistory } from 'react-router-dom';
+import { getCookie } from '../helpers/Helpers'
 
-function NavBar({ getCookie, setValue }) {
+function NavBar({ setValue }) {
     let history = useHistory();
     let logOut = () => {
         axios.get('http://localhost:8000/api/logout', {
             headers: {
-                'Authorization': `Bearer ${getCookie('token')}`,
+                'Authorization': `Bearer ${getCookie()}`,
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
             }
@@ -29,12 +30,26 @@ function NavBar({ getCookie, setValue }) {
     return (
         <nav>
             <ul>
-                <li>
-                    <Link to="/home">Home</Link>
-                </li>
-                <li>
-                    {localStorage.getItem("user") ? <a href="#" onClick={() => logOut()}>Logout</a> : <Link to="/login">Login</Link>}
-                </li>
+                {
+                    localStorage.getItem("user") ?
+                        <>
+                            <li>
+                                <Link to="/home">Home</Link>
+                            </li>
+                            <li>
+                                <a href="#" onClick={() => logOut()}>Logout</a>
+                            </li>
+                        </>
+                        :
+                        <>
+                            <li>
+                                <Link to="/register">Register</Link>
+                            </li>
+                            <li>
+                                <Link to="/login">Login</Link>
+                            </li>
+                        </>
+                }
             </ul>
         </nav>
     )

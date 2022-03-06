@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useHistory, Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
+import PusherClass from '../../Pusher/pusher';
+import { getCookie } from '../../helpers/Helpers'
 
-function Login({ setValue, getCookie }) {
+function Login({ setValue }) {
   let [email, setEmail] = useState(null);
   let [password, setPassword] = useState(null);
   let history = useHistory();
@@ -20,6 +22,7 @@ function Login({ setValue, getCookie }) {
       console.log(response);
       localStorage.setItem("user", JSON.stringify(response.data.data.user));
       document.cookie = `token=${response.data.data.token}`;
+      let pusher = PusherClass.getInstance(response.data.data.user.id)
       history.push('/home');
       setValue(2);
     });
@@ -31,11 +34,10 @@ function Login({ setValue, getCookie }) {
       {(localStorage.getItem("user") && !getCookie()) && <Redirect to='/home'></Redirect>}
 
       <label>email</label>
-      <input type="email" onChange={(e) => { setEmail(e.target.value) }} autoComplete />
+      <input type="email" onChange={(e) => { setEmail(e.target.value) }} />
       <label>password</label>
       <input type="password" onChange={(e) => { setPassword(e.target.value) }} />
       <button type="button" className="btn btn-primary" onClick={() => login()}>Submit</button>
-      <Link to="/register">Register</Link>
     </div>
   );
 }
