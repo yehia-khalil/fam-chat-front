@@ -5,7 +5,6 @@ import Container from './sidePanel/Container'
 import { getCookie } from '../helpers/Helpers'
 
 function Home() {
-    let match = useRouteMatch();
     return (
         <div>
             {(!localStorage.getItem("user") && !getCookie()) && <Redirect to='/login'></Redirect>}

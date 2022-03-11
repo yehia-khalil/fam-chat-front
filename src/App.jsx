@@ -20,7 +20,7 @@ function App() {
   return (
     <Router>
       <div>
-        <NavBar  setValue={setValue}/>
+        <NavBar setValue={setValue}/>
 
         <Switch>
           <Route path="/login">
@@ -29,10 +29,10 @@ function App() {
           <Route path="/register">
             <Register setValue={setValue}/>
           </Route>
-          <Route path="/">
+          <Route path="/home">
             <Home />
           </Route>
-          <Redirect from="*" to="/" />
+          <Redirect from="*" to="/home" />
         </Switch>
       </div>
     </Router>
